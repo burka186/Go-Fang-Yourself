@@ -267,7 +267,7 @@ input {
 	margin: 0 auto;
 	width: 700px;
 	height: 400px;
-	background-color: red;
+	border: 5px solid black;
 }
 
 

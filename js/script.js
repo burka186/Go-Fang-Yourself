@@ -5,16 +5,56 @@ window.URL || (window.URL = window.webkitURL || window.msURL || window.oURL);
 //normalize navigator.getUserMedia
 navigator.getUserMedia || (navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 
+var geocoder;
+var map;
+var zipcode;
+
+
+var initializeMap = function(zipcode) {
+	geocoder = new google.maps.Geocoder();
+	var latlng = new google.maps.LatLng(zipcode);
+	var mapOptions = {
+		zoom: 8,
+		center: latlng
+	}
+
+	map = new google.maps.Map(document.getElementById('mapCanvas'), mapOptions);
+
+	//passes zipcode input to codeAddress function
+	codeAddress();	
+
+};
+
+var codeAddress = function() {
+	// var zipcode = document.getElementById('zipcode').value;
+	
+	geocoder.geocode( { 'address': zipcode}, function(results, status){
+		map.setCenter(results[0].geometry.location);
+		if (status == google.maps.GeocoderStatus.OK) {
+			var marker = new google.maps.Marker({
+				map: map,
+				position: results[0].geometry.location
+			});	
+		} else {
+			alert('Geocode unsuccessful because '+ status);
+		}
+	});
+};
+
 //what happens when you input your zip and click the feed me button
-var feedMe = function() {
+var feedMe = function(zipcode) {
 	//hides all other divs from page
 	$('#congratsWrapper, #transparentOverlayTwo, #videoContainer, #righthandContainer').addClass('hideBox');
-	//creates map div
-	var map = $('<div/>');
-	//gives map div an id of #map-canvas
-	map.attr('id', 'mapCanvas');
 
-	$('body').append(map);
+	//creates map div
+	var mapDiv = $('<div/>');
+	//gives map div an id of #map-canvas
+	mapDiv.attr('id', 'mapCanvas');
+
+	$('body').append(mapDiv);
+
+	//calls initialize map function when the mapDiv has loaded:
+	google.maps.event.addDomListener(mapDiv, 'append', initializeMap(zipcode));
 	
 	console.log('hey');
 };
@@ -107,9 +147,12 @@ var congratulations = function() {
 	console.log('congratulations');
 
 	var feed = document.getElementById('feedButton');
-	var zipcode = $('#zipcode').val();
+	
 	$(feed).on('click', function(){
-		feedMe();
+		zipcode = document.getElementById('zipcode').value;
+		console.log(zipcode.value);
+		
+		feedMe(zipcode);
 	});
 };
 
