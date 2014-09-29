@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf=8">
+	<title>Go Fang Yourself!</title>
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/animate.css">
+	<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy_QYL6jpteqajvI1N7xNTiNRTtgVm0PE">
+    </script>
+</head>
+<body>
+	<div id="transparentOverlay"></div>
+	<div id="popupBox">
+		<img id="logo" src="images/logo.png"><h1>WELCOME, MORTAL!</h1><img id="logoTwo" src="images/logo.png">
+		<p><span>Go Fang Yourself!</span> is the world leader in digital vampirism services.<br>Please enter your personal information to continue.</p>
+		<div id="inputs">
+			NAME: <input id="name"></input>
+			BLOOD TYPE: <select>
+				<option>O +</option>
+				<option>O -</option>
+				<option>A +</option>
+				<option>A -</option>
+				<option>B +</option>
+				<option>B -</option>
+				<option>AB +</option>
+				<option>AB -</option>
+			</select>
+			<br>
+			<br>
+			REASON FOR SEEKING IMMORTALITY: <input id="reason"></input>
+			<br>
+			<br>
+			<input type="checkbox" id="checkbox"></input>  I hereby forfeit my mortality and agree to all terms and conditions.
+		</div>
+		<div id="button">TURN ME</div>
+	</div>
+	<div id="mainContainer">
+		<div id="title">
+			<img src="images/title.png">
+		</div>
+		<div id="videoContainer">
+			<canvas width="600" height="400" class="mask"></canvas>
+		</div>
+		<div id="righthandContainer">
+			<p>Click the button below to initiate Go Fang Yourself!'s patented Digital Vampirism Apparatus.<br><br>Don't worry, unlike an analog bite, it won't hurt a bit!</p>
+			<div id="vamp">BECOME IMMORTAL</div>
+		</div>
+	</div>
+	<div id="congratsWrapper">
+		<div id="transparentOverlayTwo"></div>
+		<div id="congrats">
+			<img id="logoL" src="images/logo.png"><h1>CONGRATULATIONS!</h1><img id="logoR" src="images/logo.png">
+			<div id="congratsBody">
+				<p>You are now a vampire, and hereby entitled to all powers conferred therein, including but not limited to:</p>
+				<ul>
+					<li>Eternal Life!</li>
+					<li>Enhanced Strength!</li>
+					<li>Enhanced Speed!</li>
+					<li>Unnatural Healing!</li>
+					<li>Flight!</li>
+					<li>Telekenesis!</li>
+				</ul>
+				<p>In order to sustain your power, you must maintain a steady diet of human blood. We at Go Fang Yourself! have endeavored to make your transition to this new diet as seamless as possible.<br><span>Please enter your zip code below to receive a map of delicious mortals to feed on in your area.</span></p>
+				<div id="zipcodeWrapper">
+					ZIP-CODE:  <input id="zipcode"></input>
+					<div id="feedButton">FEED ME</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="js/ccv.js"></script>
+	<script src="js/face.js"></script>
+	<script src="js/script.js"></script>
+</body>
+</html>
