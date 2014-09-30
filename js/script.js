@@ -5,192 +5,11 @@ window.URL || (window.URL = window.webkitURL || window.msURL || window.oURL);
 //normalize navigator.getUserMedia
 navigator.getUserMedia || (navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 
-// var geocoder;
-// var map;
-// var zipcode;
-// var infowindow;
-// var city;
-
-// var initializeMap = function(zipcode) {
-    
-// 	geocoder = new google.maps.Geocoder();
-// 	var latlng = new google.maps.LatLng(zipcode);
-// 	var mapOptions = {
-// 		zoom: 12,
-// 		center: latlng
-// 	}
-
-// 	//renders new map into mapCanvas div
-// 	map = new google.maps.Map(document.getElementById('mapCanvas'), mapOptions);
-
-// 	// //calls codeAddress function
-// 	codeAddress();	
-
-// 	var getCity = function(response) {
-// 		$.ajax({
-// 			url: 'http://ZiptasticAPI.com/' + zipcode,
-// 			dataType : 'jsonp',
-// 			success : function(response){
-// 				console.log(response);
-// 				city = response.city;
-// 			}
-// 		});
-// 	};
-
-
-
-
-// 	var request = {
-//     			location: city,
-//     			radius: 500,
-//     			types: ['lodging']
-//   				};
-
-//   			infowindow = new google.maps.InfoWindow();
-
-//   			var service = new google.maps.places.PlacesService(map);
-
-//   			service.nearbySearch(request, callback);	
-
-// };
-
-
-// var callback = function(results, status) {
-//   if (status == google.maps.places.PlacesServiceStatus.OK) {
-//     for (var i = 0; i < results.length; i++) {
-//       createMarker(results[i]);
-//     }
-//   }
-// };
-
-// var codeAddress = function() {
-// 	// var zipcode = document.getElementById('zipcode').value;
-	
-// 	geocoder.geocode( { 'address': zipcode}, function(results, status){
-// 		map.setCenter(results[0].geometry.location);
-// 		if (status == google.maps.GeocoderStatus.OK) {
-// 			var marker = new google.maps.Marker({
-// 				map: map,
-// 				position: results[0].geometry.location
-// 			});	
-
-// 		} else {
-// 			alert('Geocode unsuccessful because '+ status);
-// 		}
-// 	});
-// };
-
-// var map;
-// var infoWindow;
-// var service;
-
-// var initializeMap = function(zipcode) {
-//   map = new google.maps.Map(document.getElementById('map-canvas'), {
-//     center: new google.maps.LatLng(zipcode),
-//     zoom: 6,
-//     styles: [
-//       {
-//         stylers: [
-//           { visibility: 'simplified' }
-//         ]
-//       },
-//       {
-//         elementType: 'labels',
-//         stylers: [
-//           { visibility: 'off' }
-//         ]
-//       }
-//     ]
-//   });
-
-//   infoWindow = new google.maps.InfoWindow();
-//   service = new google.maps.places.PlacesService(map);
-
-//   google.maps.event.addListenerOnce(map, 'bounds_changed', performSearch);
-// }
-
-// function performSearch() {
-//   var request = {
-//     bounds: map.getBounds(),
-//     keyword: 'crowded'
-//   };
-//   service.radarSearch(request, callback);
-// }
-
-// function callback(results, status) {
-//   if (status != google.maps.places.PlacesServiceStatus.OK) {
-//     alert(status);
-//     return;
-//   }
-//   for (var i = 0, result; result = results[i]; i++) {
-//     createMarker(result);
-//   }
-// }
-
-// function createMarker(place) {
-//   var marker = new google.maps.Marker({
-//     map: map,
-//     position: place.geometry.location,
-//     icon: {
-//       // Star
-//       path: 'M 0,-24 6,-7 24,-7 10,4 15,21 0,11 -15,21 -10,4 -24,-7 -6,-7 z',
-//       fillColor: '#ffff00',
-//       fillOpacity: 1,
-//       scale: 1/4,
-//       strokeColor: '#bd8d2c',
-//       strokeWeight: 1
-//     }
-//   });
-
-//   google.maps.event.addListener(marker, 'click', function() {
-//     service.getDetails(place, function(result, status) {
-//       if (status != google.maps.places.PlacesServiceStatus.OK) {
-//         alert(status);
-//         return;
-//       }
-//       infoWindow.setContent(result.name);
-//       infoWindow.open(map, marker);
-//     });
-//   });
-// }
-
+var geocoder;
 var map;
-var infowindow;
-
-var initializeMap = function(city) {
-
-  var resultData;
-  var geocoder =  new google.maps.Geocoder();
-    geocoder.geocode( { 'address': city }, function(results, status) {
-          if (status == google.maps.GeocoderStatus.OK) {
-            return resultData = results[0].geometry.location.lat() + "," +results[0].geometry.location.lng();
-          } else {
-            alert("Something got wrong " + status);
-          }
-        });
-
-  map = new google.maps.Map(document.getElementById('map-canvas'), {
-    center: resultData,
-    zoom: 15
-  });
-
-  var request = {
-    location: resultData,
-    radius: 500,
-    types: ['store']
-  };
-  infowindow = new google.maps.InfoWindow();
-  var service = new google.maps.places.PlacesService(map);
-  service.nearbySearch(request, callback);
-}
-
-function callback(results, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      createMarker(results[i]);
-    }
-  }
-}
+var zipcode;
+var latlng;
+var places;
 
 function createMarker(place) {
   var placeLoc = place.geometry.location;
@@ -203,17 +22,69 @@ function createMarker(place) {
     infowindow.setContent(place.name);
     infowindow.open(map, this);
   });
-}
+};
+
+function callback(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      createMarker(results[i]);
+    }
+  }
+};
+
+var requestPlaces= function(latlng){
+	var request = {
+    location: latlng,
+    radius: 500,
+    types: ['store']
+  };
+  infowindow = new google.maps.InfoWindow();
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch(request, callback);
+};
+
+var initializeMap = function(zipcode) {
+	geocoder = new google.maps.Geocoder();
+	latlng = new google.maps.LatLng(zipcode);
+	var mapOptions = {
+		zoom: 12,
+		center: latlng
+	}
+
+	//passes zipcode input to codeAddress function
+	codeAddress(zipcode);
+
+
+	map = new google.maps.Map(document.getElementById('mapCanvas'), mapOptions);	
+
+};
+
+var codeAddress = function(zipcode) {
+	// var zipcode = document.getElementById('zipcode').value;
+	
+	geocoder.geocode( { 'address': zipcode}, function(results, status){
+		map.setCenter(results[0].geometry.location);
+		if (status == google.maps.GeocoderStatus.OK) {
+			var marker = new google.maps.Marker({
+				map: map,
+				position: results[0].geometry.location
+			});	
+			requestPlaces(latlng);
+		} else {
+			alert('Geocode unsuccessful because '+ status);
+		}
+	});
+};
 
 //what happens when you input your city and click the feed me button
-var feedMe = function(city) {
+var feedMe = function() {
 	//hides all other divs from page
 	$('#congratsWrapper, #transparentOverlayTwo, #videoContainer, #righthandContainer').addClass('hideBox');
 
 	//creates map div
 	var mapDiv = $('<div/>');
 	var closeMap = $('<div/>');
-	//gives map div an id of #map-canvas
+	//gives map div an id of #mapCanvas
 	mapDiv.attr('id', 'mapCanvas');
 
 	closeMap.attr('id', 'mapX').html('<p>X</p>');
@@ -222,8 +93,8 @@ var feedMe = function(city) {
 
 
 
-	//calls initialize map function when the mapDiv has loaded:
-	google.maps.event.addDomListener(mapDiv, 'append', initializeMap(city));
+	//calls initialize map function when the feedMe button is clicked:
+	google.maps.event.addDomListener(mapDiv, 'append', initializeMap(zipcode));
 	
 	console.log('feedMe done');
 
@@ -307,10 +178,14 @@ var congratulations = function() {
 
 	var feed = document.getElementById('feedButton');
 	
+	
+	
 	$(feed).on('click', function(){
-		city = document.getElementById('zipcode').value;
-		
-		feedMe(city);
+		zipcode = document.getElementById('zipcode').value;
+		console.log(zipcode);
+		// //calls initialize map function when the feedMe button is clicked:
+		// google.maps.event.addDomListener(feed, 'click', initializeMap(city));
+		feedMe();
 	});
 };
 
@@ -350,6 +225,8 @@ var init = function() {
 			hidePopup();
 		}
 	});
+
+	
 };
 
 window.onload = init();

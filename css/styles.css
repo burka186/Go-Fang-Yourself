@@ -123,7 +123,7 @@ input {
 #videoContainer {
 	width: 600px;
 	height: auto;
-	background-color: #000;
+	background-image: url('../images/vidBackground.png');
 }
 
 .videoLeft {
@@ -158,6 +158,10 @@ input {
 	/*font-style: italic;*/
 	text-align: center;
 	cursor: pointer;
+}
+
+#note {
+	font-size: 0.75em;
 }
 
 /* FEED ME BOX STYLES */
