@@ -6,9 +6,10 @@
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<link rel="stylesheet" type="text/css" href="css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="css/animate.css">
-	<script type="text/javascript"
+	<!--<script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy_QYL6jpteqajvI1N7xNTiNRTtgVm0PE">
-    </script>
+    </script>-->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 </head>
 <body>
 	<div id="transparentOverlay"></div>
@@ -40,7 +41,7 @@
 		<div id="title">
 			<img src="images/title.png">
 		</div>
-		<div id="videoContainer">
+		<div id="videoContainer" class="videoLeft">
 			<canvas width="600" height="400" class="mask"></canvas>
 		</div>
 		<div id="righthandContainer">
@@ -62,15 +63,16 @@
 					<li>Flight!</li>
 					<li>Telekenesis!</li>
 				</ul>
-				<p>In order to sustain your power, you must maintain a steady diet of human blood. We at Go Fang Yourself! have endeavored to make your transition to this new diet as seamless as possible.<br><span>Please enter your zip code below to receive a map of delicious mortals to feed on in your area.</span></p>
+				<p>In order to sustain your power, you must maintain a steady diet of human blood. We at Go Fang Yourself! have endeavored to make your transition to this new diet as seamless as possible.<br><span>Please enter your city of residence below to receive a map of delicious mortals to feed on in your area.</span></p>
 				<div id="zipcodeWrapper">
-					ZIP-CODE:  <input type="textbox" id="zipcode" value=""></input>
+					CITY:  <input type="textbox" id="zipcode" value=""></input>
 					<div id="feedButton">FEED ME</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
+	<div id="mapHere">
+	</div>
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/ccv.js"></script>
 	<script src="js/face.js"></script>
